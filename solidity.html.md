@@ -222,9 +222,27 @@ assert(c >= a); // assert tests for internal invariants; require is used for use
 // For more examples of common arithmetic issues, see Zeppelin's SafeMath library
 // https://github.com/OpenZeppelin/zeppelin-solidity/blob/master/contracts/math/SafeMath.sol
 
+// Harmony VRF (Verifiable Random Function) creates an optimal solution 
+// for randomness that is unpredictable, unbiasable, verifiable and
+// immediately available. 
+// Read more at (https://docs.harmony.one/home/developers/harmony-vrf)
+// 
+// Harmony VRF is available for every single block and any smart 
+// contract can access the random output through a precompiled contract 
+// without paying additional fees. 
+// 
+// Access the VRF through the code below: 
 
-// No random functions built in, you can get a pseduo-random number by hashing the current blockhash, or get a truely random number using something like Chainlink VRF. 
-// https://docs.chain.link/docs/get-a-random-number
+function vrf() public view returns (bytes32 result) {
+  bytes32 input;
+  assembly {
+    let memPtr := mload(0x40)
+    if iszero(staticcall(not(0), 0xff, input, 32, memPtr, 32)) {
+        invalid()
+    }
+    result := mload(memPtr)
+  }
+}
 
 // Type casting
 int x = int(b);
@@ -917,7 +935,7 @@ successBoolean = someContractAddress.call('function_name', 'arg1', 'arg2');
 someContractAddress.callcode('function_name');
 ```
 
-### Style Notes
+### 13. Style Notes
 ```javascript
 // Based on Python's PEP8 style guide
 // Full Style guide: http://solidity.readthedocs.io/en/develop/style-guide.html
@@ -991,6 +1009,6 @@ someContractAddress.callcode('function_name');
 - Editor Snippets ([Ultisnips format](https://gist.github.com/nemild/98343ce6b16b747788bc))
 
 ## On-Chain VRF (Verifiable Random Functions)
-
+- [Harmony VRF](https://docs.harmony.one/home/developers/harmony-vrf)
 
 Feel free to send a pull request with any edits - or email nemild -/at-/ gmail
