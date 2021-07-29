@@ -102,6 +102,8 @@ Harmony One has released a wallet and customised version of the Remix IDE specif
 ## Walkthrough of the SimpleBank example
 In our example above (`Working with Remix and Metamask`) we deployed the SimpleBank smart contract. This section will briefly walk you through the example contract.
 
+The SimpleBank contract allows anyone to deposit, withdraw, and check their balance in their account. This account is connected to your Metamask address.
+
 ```javascript
 // First, a simple Bank contract
 // Allows deposits, withdrawals, and balance checks
@@ -314,7 +316,6 @@ uint x = 5;
 
 ### 2. Data Structures
 ```javascript
-// 2. DATA STRUCTURES
 // Arrays
 bytes32[5] nicknames; // static array
 bytes32[] names; // dynamic array
