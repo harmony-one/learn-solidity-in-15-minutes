@@ -89,7 +89,14 @@ When working with a testnet, we can actually see and interact with our contracts
 To deploy to a testnet, on the `#4 Deploy` step, change your `environment` to `injected web3`.
 This will use whatever network is currently selected in your metamask as the network to deploy to. 
 
-![Solidity-in-remix](images/solidity/remix-testnet.png)
+![Solidity-in-remix](images/solidity/remix-testnet.png)  
+
+| :exclamation: | When you select `Injected Web3` for the first time, a prompt will appear asking you to grant permission for the website to use the Metamask plugin. Select the account you want to connect to, review the permissions, and click `Connect`  ![Solidity-connect](images/solidity/remix-connect-metamask.png)   |
+|---------------|:------------------------|
+
+Once your contract is deployed on the testnet, you can inspect the contract on the blockchain by copying the contract address and pasting it into the [Blockchain Explorer](https://explorer.pops.one/) 
+
+![Solidity-connect](images/solidity/copy-address.png)  
 
 For now, please continue to use the `Javascript VM` unless instructed otherwise. When you deploy to a testnet, metamask will pop up to ask you to "confirm" the transaction. Hit yes, and after a delay, you'll get the same contract interface at the bottom of your screen. 
 
