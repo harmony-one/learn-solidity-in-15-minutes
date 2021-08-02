@@ -236,6 +236,8 @@ uint256 c = a + b;
 assert(c >= a); // assert tests for internal invariants; require is used for user inputs
 // For more examples of common arithmetic issues, see Zeppelin's SafeMath library
 // https://github.com/OpenZeppelin/zeppelin-solidity/blob/master/contracts/math/SafeMath.sol
+// NOTE: as of version 0.8.0 of Solidity the compiler will revert on any overflow errors. 
+// SafeMath has been retained by Open Zeppelin until next major release.
 
 // Harmony VRF (Verifiable Random Function) creates an optimal solution 
 // for randomness that is unpredictable, unbiasable, verifiable and
@@ -428,9 +430,6 @@ block.number; // current block number
 block.difficulty; // current block difficulty
 block.blockhash(1); // returns bytes32, only works for most recent 256 blocks
 block.gasLimit();
-
-// ** storage - Persistent storage hash **
-storage['abc'] = 'def'; // maps 256 bit words to 256 bit words
 ```
 
 ### 5. Functions and More
@@ -591,27 +590,28 @@ for(uint x = 0; x < refundAddressList.length; x++) {
 ```javascript
 // A. Calling external contract
 contract InfoFeed {
-    function info() payable returns (uint ret)  { return 42; }
+    function info() public payable returns (uint ret)  { return 42; }
 }
 
 contract Consumer {
     InfoFeed feed; // points to contract on blockchain
 
     // Set feed to existing contract instance
-    function setFeed(address addr) {
+    function setFeed(address addr) public {
         // automatically cast, be careful; constructor is not called
         feed = InfoFeed(addr);
     }
 
     // Set feed to new instance of contract
-    function createNewFeed() {
+    function createNewFeed() public {
         feed = new InfoFeed(); // new instance created; constructor called
     }
 
-    function callFeed() {
+    function callFeed() public payable {
         // final parentheses call contract, can optionally add
         // custom ether value or gas
-        feed.info.value(10).gas(800)();
+        feed.info{value:10, gas:80000}();
+
     }
 }
 
@@ -622,7 +622,7 @@ contract Consumer {
 contract MyContract is abc, def("a custom argument to def") {
 
 // Override function
-    function z() {
+    function z() public override(abc, def) {
         if (msg.sender == owner) {
             def.z(); // call overridden function from def
             super.z(); // call immediate parent overridden function
@@ -912,6 +912,9 @@ contract CrowdFunder {
 uint minAmount = 1 wei;
 uint a = 1 finney; // 1 ether == 1000 finney
 // Other units, see: http://ether.fund/tool/converter
+
+// NOTE: as of Solidity version 0.7.0, finney and szabo denominations have been
+// removed from the Solidity language
 
 // Time units
 1 == 1 second
