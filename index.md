@@ -1028,4 +1028,4 @@ someContractAddress.callcode('function_name');
 ## On-Chain VRF (Verifiable Random Functions)
 - [Harmony VRF](https://docs.harmony.one/home/developers/harmony-vrf)
 
-Feel free to send a pull request with any edits - or email nemild -/at-/ gmail
+Feel free to send a pull request with any edits - or email sprect8 -/at-/ gmail
